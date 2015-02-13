@@ -1,0 +1,26 @@
+{
+	"app": "./app",
+	"public": "./public",
+	"prod": "./cordova/www/",
+	"js": "./app/js/**/*.js",
+	"test": "./test/unit/**/*.js",
+	"html": [
+		"./app/index.html",
+		"./app/views/**/*.html"
+	],
+	"less": "./app/less/**/*.less",
+	"browsers": [
+		"last 2 versions",
+		"Safari >= 5",
+		"iOS >= 6",
+		"Android >= 4"
+	],
+	"browserSync": {
+		"server": {
+			"baseDir": "app"
+		},
+		"browser": ["google chrome"],
+		"tunnel": "nground",
+		"port": 3000
+	}
+}

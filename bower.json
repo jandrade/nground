@@ -1,0 +1,32 @@
+{
+  "name": "pico",
+  "version": "0.0.0",
+  "authors": [
+    "Juan David Andrade <juandavidandrade@gmail.com>"
+  ],
+  "description": "El Picó App",
+  "keywords": [
+    "frontend",
+    "app"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src",
+    "grunt",
+    "js",
+    "less",
+    "gulpfile.js",
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "angular": "~1.3.13"
+  }
+}

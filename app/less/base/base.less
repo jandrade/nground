@@ -1,0 +1,79 @@
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font: @font-base @secondary-font;
+	line-height: 1.5em;
+	-webkit-font-smoothing: antialiased;
+}
+
+/**
+ * Headings
+ */
+h1, h2, h3, h4, h5, h6 {
+	color: @title-color;
+	font-family: @primary-font;
+	margin: 0;
+}
+
+h1 {
+	font-size: @font-xxl;
+	font-weight: @fw-bold;
+}
+
+h2 {
+	font-size: @font-xl;
+	font-weight: @fw-bold;
+}
+
+h3 {
+	font-size: @font-lg;
+	font-weight: @fw-bold;
+}
+
+h4 {
+	font-size: @font-md;
+}
+
+h5 {
+	font-size: @font-sm;
+}
+
+ul {
+	&,
+	li {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+/**
+ * Links
+ */
+a {
+	color: @link-color;
+	font-weight: bold;
+	text-decoration: underline;
+	-webkit-font-smoothing: antialiased;
+
+	&:hover{
+		color: darken(@link-color, 5%);
+		text-decoration: none;
+	}
+
+	&:visited{
+		color: darken(@link-color, 10%);
+	}
+}
+
+/**
+ * Media
+ */
+
+img {
+	max-width: 100%; //rwd
+}

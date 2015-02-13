@@ -1,0 +1,29 @@
+/**
+ * CSS3 Transitions / animations
+ */
+
+
+/**
+ * Animations
+ */
+
+// slide up/down animation
+.expand-animation {
+	overflow-y: hidden;
+	max-height: 400px;
+	transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+
+	&.ng-hide {
+		max-height: 0;
+	}
+}
+
+// fade in-out animation
+.fade-animation {
+	opacity: 1;
+	transition: all 0.5s ease-in-out;
+	
+	&.ng-hide {
+		opacity: 0;
+	}
+}
