@@ -1,6 +1,6 @@
 {
   "name": "nground",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "nground - web starter kit",
   "main": "gulpfile.js",
   "contributors": [],
