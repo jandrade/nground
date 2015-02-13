@@ -1,4 +1,6 @@
-#Interfaz - El Picó App
+#nground
+
+Starter kit for Angular + Gulp + Less applications
 
 ##Table of Contents
 1. Instalation
@@ -13,19 +15,31 @@
 
 Run the following commands:
 
-1. `cd pico`
+1. `cd nground`
 
 2. `sudo npm run install`
 
-3. `gulp`
+3. `gulp serve`
 
-4. Navigate: `http://localhost/pico/app/`
+4. Navigate: `http://localhost:3000`
 
 
 ## Build Process
 
 ### Default task
 `gulp`
+
+### Javascript minification
+`gulp js`
+
+### Javascript linting
+`gulp jshint`
+
+### Generate CSS compiled file
+`gulp css`
+
+### Watch files for changes and reload
+`gulp serve`
 
 ### Watch for file changes
 
@@ -35,13 +49,11 @@ If you want to have the latest version of the code in the browser, make sure to 
 
 This will be watching for changes in LESS files.
 
-### Generate CSS compiled file
-`gulp css
-
 ### Inject required JS files
 `gulp inject`
 
 ### Run tests
+
 `gulp test`
 
 `gulp test:unit` (only unit tests)
@@ -50,14 +62,13 @@ This will be watching for changes in LESS files.
 
 ### Building
 
-`gulp build:cordova` (Builds the project and copy required files to cordova)
+`gulp build:prod` (Builds the project and copy required files to the production environment)
 
 
 ## Stack^
 - AngularJS
 	- angular-route
 	- angular-animate
-	- ng-file-upload
 - Gulp // requires nodeJS
 - Karma
 - Jasmine
@@ -183,7 +194,7 @@ We use Jasmine to perform unit testing in our app. If you want to run only unit 
 
 `gulp test:unit`
 
-After running it, you can see the results of the coverage test inside `/jaggerr/coverage/`.
+After running it, you can see the results of the coverage test inside `/coverage/`.
 
 ### e2e (End to End)
 <https://docs.angularjs.org/guide/e2e-testing>
@@ -199,16 +210,16 @@ NOTE: To run this e2e tests, you must have installed selenium in your computer.
 
 ##Routes
 
-Below you can see the available routes for the frontend application.
+These are the available routes for the application.
 
 ```
-/#/projects/add				[project form]
+/#/				[Homepage]
+/#/foo-bar		[page details]
 ```
 
 ## API
 
 ```
-[GET]	/api/category  (Get site data)
-[GET]	/api/options  (Gets metadata for the Project form)
-[GET]	/api/user  (Gets current user information)
+[GET]	/api/data  (Get site data)
+[GET]	/api/user  (Gets user information)
 ```

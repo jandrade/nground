@@ -70,7 +70,7 @@ e.g.
  * A default button
  * 
  * @example
- * <a class="btn btn-default">Button</a>
+ * <a class="button">Button</a>
  */
  .btn {]
 ```
