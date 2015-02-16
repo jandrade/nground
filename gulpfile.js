@@ -4,9 +4,11 @@
  * Imports
  */
 var gulp = require('gulp'),
+	gutil = require('gulp-util'),
 	plugins = require('gulp-load-plugins')(),
 	requireDir = require('require-dir'),
 	config = require('./config.json'),
+	pkg = require('./package.json'),
 	tasks = requireDir('./gulp-tasks');
 
 /** ===================================================
@@ -24,7 +26,9 @@ gulp.task('default', ['jshint', 'css', 'inject', 'watch']);
 /**----------------------------------------------------
  * Javascript
  */
-
+gulp.task('ng', function(done) {
+	tasks.ng(gulp, config, pkg, done);
+});
 // Javascript minification
 gulp.task('js', ['jshint'], tasks.js(gulp, plugins, config));
 

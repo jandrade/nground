@@ -4,14 +4,16 @@ Starter kit for Angular + Gulp + Less applications
 
 ##Table of Contents
 1. Instalation
-2. Tech Stack
-3. App Structure
-4. Testing
+2. Build Process
+3. Stack
+4. App Structure
+5. Testing
 6. Routes
 7. API
 
+-----------------------------------
 
-## Instalation
+## 1. Instalation
 
 Run the following commands:
 
@@ -21,10 +23,26 @@ Run the following commands:
 
 3. `gulp serve`
 
-4. Navigate: `http://localhost:3000`
+4. Navigate to: `http://localhost:3000`
+
+--------------------------------------
+
+## 2. Stack^
+- AngularJS
+	- angular-route
+	- angular-animate
+- Gulp // requires nodeJS
+- Karma
+- Jasmine
+- Protractor
+
+^ For a detailed list, please see `/bower.json`
 
 
-## Build Process
+-------------------------------------
+
+
+## 3. Build Process
 
 ### Default task
 `gulp`
@@ -64,22 +82,15 @@ This will be watching for changes in LESS files.
 
 `gulp build:prod` (Builds the project and copy required files to the production environment)
 
+### Angular Generator
 
-## Stack^
-- AngularJS
-	- angular-route
-	- angular-animate
-- Gulp // requires nodeJS
-- Karma
-- Jasmine
-- Protractor
-
-^ For a more detailed list, please see `/bower.json`
+`gulp ng -app` (Creates an Angular Application)
+`gulp ng -module` (Creates an Angular Module)
 
 
 ---------------------------------------
 
-##App Structure
+## 4. App Structure
 
 ```
 |- app/ (frontend application - development environment)
@@ -151,37 +162,9 @@ This will be watching for changes in LESS files.
 |- package.json
 ```
 
-###Anatomy of a Module
+---------------------------------------
 
-```
-|	|- projects
-|	|	|- config
-|	|	|	|- config.js (Module configuration)
-|	|	|	|- constants.js (Module constants)
-|	|	|	|- routes.js (Module routes)
-|	|	|- controllers
-|	|	|	|- add.controller.js
-|	|	|	|- edit.controller.js
-|	|	|- directives (Shared directives for current module)
-|	|	|	|- file.directive.js
-|	|	|	|- modal.directive.js
-|	|	|- factories (API Calls)
-|	|	|	|- user.api.js
-|	|	|- services (API Calls/models if it's required)
-|	|	|	|- user.api.js
-|	|	|- tests (Unit testing / e2e)
-|	|	| 	|- e2e
-|	|	|	|	|- page.e2e.js
-|	|	| 	|- unit
-|	|	|	|	|- module
-|	|	|	|	|	|- add.spec.js
-|	|	|	|	|	|- edit.spec.js
-|	|	|	|	|	|- modal.spec.js
-
-
-```
-
-##Testing (Unit Testing, e2e)
+## 5. Testing (Unit Testing, e2e)
 
 To run tests, you should run the following command in your terminal:
 
@@ -208,7 +191,7 @@ NOTE: To run this e2e tests, you must have installed selenium in your computer.
 
 ---------------------------------------
 
-##Routes
+## 6. Routes
 
 These are the available routes for the application.
 
@@ -217,7 +200,9 @@ These are the available routes for the application.
 /#/foo-bar		[page details]
 ```
 
-## API
+---------------------------------------
+
+## 7. API
 
 ```
 [GET]	/api/data  (Get site data)

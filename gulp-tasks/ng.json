@@ -1,0 +1,11 @@
+{
+  "ng": {
+    "appName": "nground",
+    "modules": [
+      "nground",
+      "nground.one",
+      "nground.one.two",
+      "nground.one.three"
+    ]
+  }
+}

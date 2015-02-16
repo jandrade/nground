@@ -1,7 +1,15 @@
 bower_components/
 node_modules/
 public/
-coverage/
+**/test/coverage
+/reports
 *.map
-**/.DS_Store
 app/**/app.css
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+packages
