@@ -85,6 +85,7 @@ This will be watching for changes in LESS files.
 ### Angular Generator
 
 `gulp ng -app` (Creates an Angular Application)
+
 `gulp ng -module` (Creates an Angular Module)
 
 
