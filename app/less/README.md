@@ -74,3 +74,9 @@ e.g.
  */
  .btn {]
 ```
+
+----------------------------------------
+
+##License
+
+MIT © [Juan David Andrade](http://jdandrade.com/)
