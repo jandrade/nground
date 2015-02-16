@@ -215,3 +215,9 @@ These are the available routes for the application.
 [GET]	/api/data  (Get site data)
 [GET]	/api/user  (Gets user information)
 ```
+
+----------------------------------------
+
+##License
+
+MIT © [Juan David Andrade](http://jdandrade.com/)
