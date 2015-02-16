@@ -23,28 +23,76 @@ module.exports = function (gulp, config, pkg, done) {
 
 	var components = {},
 		modulesList = [],
-		appName,
-		params = process.argv.splice(process.argv.length - 2, 2),
-		subtask = params[0],
-		name = params[1],
-		nameFilled = true;
+		appName;
 
-	if (!/^\-/.test(subtask)) {
-		nameFilled = false;
-		subtask = name;
-		//return done("You must add a name for your component");
-	}
-
-	subtask = subtask.replace('-', '');
-
-	gulp.storage.create('ng', __dirname + '/ng.json');
+	gulp.storage.create('ng', __dirname + '/templates/ng.json');
 
 	modulesList = gulp.storage.get('modules') || [];
 	appName = gulp.storage.get('appName');
 
-	console.log(" /// APPP: ", __dirname, subtask, name);
+	/**
+	 * Encapsulates all component types and builds every ng element
+	 */
+	var ComponentsContext = function() {
+		var strategy,
+			params = process.argv.splice(process.argv.length - 2, 2),
+			subtask = params[0],
+			name = params[1],
+			nameFilled = true;
 
+		/**
+		 * @constructs ComponentsContext
+		 */
+		(function() {
+			if (!/^\-/.test(subtask)) {
+				nameFilled = false;
+				subtask = name;
+			}
+
+			subtask = subtask.replace('-', '');
+
+			switch(subtask) {
+				case 'a':
+					subtask = 'app';
+				break;
+				case 'c':
+					subtask = 'controller';
+				break;
+				case 'd':
+					subtask = 'directives';
+				break;
+				case 'f':
+					subtask = 'factory';
+				break;
+				case 'm':
+					subtask = 'module';
+				break;
+			}
+
+			strategy = new components[subtask]();
+
+			if (!nameFilled) {
+				strategy.build();
+			} else {
+				strategy.execute();
+			}
+		})();
+	};
+
+	/**
+	 * Questions List
+	 * @type {Object}
+	 */
 	var questions = {
+		/**
+		 * App
+		 */
+		appName: {
+			type: 'input',
+    		name: 'moduleName',
+    		message: 'What is your Angular app name?',
+    		default: pkg.name
+		},
 		/**
 		 * Modules
 		 */
@@ -65,10 +113,39 @@ module.exports = function (gulp, config, pkg, done) {
 		 */
 		directive: {
 			type: 'input',
-    		name: 'directiveName',
+    		name: 'componentName',
     		message: 'What is your directive name?'
+		},
+		/**
+		 * Controller
+		 */
+		controller: {
+			type: 'input',
+    		name: 'componentName',
+    		message: 'What is your controller name?'
+		},
+		/**
+		 * Factory
+		 */
+		factory: {
+			type: 'input',
+    		name: 'factoryName',
+    		message: 'What is your factory name?'
+		},
+		/**
+		 * Less
+		 */
+		includeLess: {
+			type: 'confirm',
+    		name: 'includeLess',
+    		message: 'Do you want to include a LESS file?',
+    		default: 'n'
 		}
 	};
+
+	/**-----------------------------------------
+	 Strategies
+	 -----------------------------------------*/
 
 	/**
 	 * Generates an Angular Application
@@ -76,19 +153,11 @@ module.exports = function (gulp, config, pkg, done) {
 	components.app = function() {
 		var answers;
 
-		function prompts() {
+		function build() {
 			inquirer.prompt([
-				{
-					type: 'input',
-		    		name: 'moduleName',
-		    		message: 'What is your Angular app name?',
-		    		default: pkg.name
-				}
+				questions.appName
 			], function( _answers ) {
 				answers = _answers;
-				console.log("app answers: ", answers);
-
-				answers.author = pkg.author;
 
 				gulp.storage.set('appName', answers.moduleName);
 
@@ -97,11 +166,12 @@ module.exports = function (gulp, config, pkg, done) {
 				gulp.storage.set('modules', modulesList);
 
 				execute();
-				//return done();
 			});
 		}
 
 		function execute() {
+			answers.author = pkg.author;
+
 			gulp.src([
 				__dirname + '/templates/ng/app.js',
 				__dirname + '/templates/ng/config.js'
@@ -112,42 +182,46 @@ module.exports = function (gulp, config, pkg, done) {
 	        }))
 	        .pipe(gulp.dest(config.app + '/js/modules/app/'))
 	        .on('end', function () {
-	        	console.log("END.......");
-                done();
+	        	done();
             });
 		}
 
-		if (!nameFilled) {
-			console.log("You must add a name for your component");
-			prompts();
-		} else {
-			execute();
-		}
+		return {
+			build: build,
+			execute: execute
+		};
 	};
 
 	/**
 	 * Generates an Angular Module
 	 */
 	components.module = function() {
-		console.log("new module from app: ", gulp.storage.get('moduleName'));
+		var answers;
 
-		inquirer.prompt([
-			questions.moduleAsInput,
-			questions.moduleAsList
-		], function( answers ) {
-			console.log("answers: ", answers);
+		function build() {
+			inquirer.prompt([
+				questions.moduleAsInput,
+				questions.moduleAsList
+			], function( _answers ) {
+				answers = _answers;
+				execute();
+			});
+		}
+
+		function execute() {
+
 			var singleName = answers.moduleName;
 
 			answers.author = pkg.author;
 
-			answers.moduleName = answers.parentModule + '.' + answers.moduleName;
+			answers.moduleName = answers.parentModule + '.' + singleName;
 
 			// duplicate name, end stream
 			if (modulesList.indexOf(answers.moduleName) > -1) {
 				return done("Error: Duplicate module");
 			}
 
-			var path = answers.parentModule.replace(appName + '.', '').replace('.', '/') + '/' + singleName;
+			var path = answers.parentModule.replace(appName, '').replace('.', '/') + '/' + singleName;
 
 			// add module to storage
 			modulesList.push(answers.moduleName);
@@ -168,23 +242,183 @@ module.exports = function (gulp, config, pkg, done) {
 		        .on('end', function () {
 	                done();
 	            });
-		});
+		}
+
+		return {
+			build: build,
+			execute: execute
+		};
 	};
 
 	/**
 	 * Generates an Angular Directive
 	 */
 	components.directive = function() {
+		var answers;
 
-		inquirer.prompt([
-			questions.moduleAsList,
-			questions.directive
-		], function( answers ) {
-			console.log("answers: ", answers);
-			return done();
-		});
+		function build() {
+			inquirer.prompt([
+				questions.directive,
+				questions.moduleAsList,
+				questions.includeLess
+			], function( _answers ) {
+				answers = _answers;
+				execute();
+			});
+		}
+
+		function execute() {
+			var singleName = answers.componentName;
+
+			answers.author = pkg.author;
+			answers.moduleName = answers.parentModule;
+
+			var path = answers.parentModule.replace(appName, '').replace('.', '/') + '/directives/';
+
+			if (answers.includeLess) {
+				addLess(answers, 'directives');
+			}
+
+			gulp.src([
+				__dirname + '/templates/ng/directive.js'
+				])
+		        .pipe(template(answers))
+		        .pipe(rename(function(path) {
+		        	// only rename files, not directories
+		        	if (path.extname !== '') {
+		        		path.basename = singleName + '.' + path.basename;
+		        	}
+		        }))
+		        .pipe(gulp.dest(config.app + '/js/modules/' + path + '/'))
+		        .on('end', function () {
+	                done();
+	            });
+		}
+
+		return {
+			build: build,
+			execute: execute
+		};
 	};
 
-	components[subtask]();
+	/**
+	 * Generates an Angular Controller
+	 */
+	components.controller = function() {
+		var answers;
+
+		function build() {
+			inquirer.prompt([
+				questions.controller,
+				questions.moduleAsList,
+				questions.includeLess
+			], function( _answers ) {
+				answers = _answers;
+				execute();
+			});
+		}
+
+		function execute() {
+			var singleName = answers.componentName;
+
+			answers.author = pkg.author;
+			answers.moduleName = answers.parentModule;
+
+			if (answers.includeLess) {
+				addLess(answers, 'controllers');
+			}
+
+			var path = answers.parentModule.replace(appName, '').replace('.', '/') + '/controllers/';
+
+			gulp.src([
+				__dirname + '/templates/ng/controller.js'
+				])
+		        .pipe(template(answers))
+		        .pipe(rename(function(path) {
+		        	// only rename files, not directories
+		        	if (path.extname !== '') {
+		        		path.basename = singleName + '.' + path.basename;
+		        	}
+		        }))
+		        .pipe(gulp.dest(config.app + '/js/modules/' + path + '/'))
+		        .on('end', function () {
+	                done();
+	            });
+		}
+
+		return {
+			build: build,
+			execute: execute
+		};
+	};
+
+	/**
+	 * Generates an Angular Factory
+	 */
+	components.factory = function() {
+		var answers;
+
+		function build() {
+			inquirer.prompt([
+				questions.factory,
+				questions.moduleAsList
+			], function( _answers ) {
+				answers = _answers;
+				execute();
+			});
+		}
+
+		function execute() {
+			var singleName = answers.factoryName;
+
+			answers.author = pkg.author;
+			answers.moduleName = answers.parentModule;
+
+			var path = answers.parentModule.replace(appName, '').replace('.', '/') + '/factories/';
+
+			gulp.src([
+				__dirname + '/templates/ng/factory.js'
+				])
+		        .pipe(template(answers))
+		        .pipe(rename(function(path) {
+		        	// only rename files, not directories
+		        	if (path.extname !== '') {
+		        		path.basename = singleName + '.' + path.basename;
+		        	}
+		        }))
+		        .pipe(gulp.dest(config.app + '/js/modules/' + path + '/'))
+		        .on('end', function () {
+	                done();
+	            });
+		}
+
+		return {
+			build: build,
+			execute: execute
+		};
+	};
+
+
+	function addLess(answers, kind) {
+		var singleName = answers.componentName;
+
+		var path = answers.parentModule.replace(appName, '').replace('.', '/') + '/' + kind + '/';
+
+		gulp.src([
+			__dirname + '/templates/ng/component.less'
+			])
+	        .pipe(template({
+	        	componentName: answers.componentName
+	        }))
+	        .pipe(rename(function(path) {
+	        	// only rename files, not directories
+	        	if (path.extname !== '') {
+	        		path.basename = singleName + '.' + path.basename;
+	        	}
+	        }))
+	        .pipe(gulp.dest(config.app + '/less/views/' + path + '/'));
+	}
+
+	new ComponentsContext();
 
 };

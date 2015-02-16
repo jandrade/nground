@@ -88,6 +88,12 @@ This will be watching for changes in LESS files.
 
 `gulp ng -module` (Creates an Angular Module)
 
+`gulp ng -directive` (Creates an Angular Directive)
+
+`gulp ng -controller` (Creates an Angular Controller)
+
+`gulp ng -factory` (Creates an Angular Factory)
+
 
 ---------------------------------------
 

@@ -1,34 +1,34 @@
 /**
- * @fileOverview <%= directiveName %> Directive
+ * @fileOverview <%= componentName %> Directive
  *
  * @author <%= author %>
  */
 (function(){
 'use strict';
 
-  /* @ngInject */
-  function <%= directiveName %>Directive() {
+	/* @ngInject */
+	function <%= componentName %>Directive() {
 
-	function Link(scope, element, attr) {
+		function Link(scope, element, attr) {
 
-		/**
-		* @constructs <%= directiveName %>Link
-		*/
-		(function init() {
+			/**
+			* @constructs <%= componentName %>Link
+			*/
+			(function init() {
 
-		})();
+			})();
+		}
+
+		return {
+			restrict: 'A',
+			link: Link,
+			scope: {},
+			templateUrl: 'template.html'
+		};
 	}
 
-	return {
-		restrict: 'A',
-		link: Link,
-		scope: {},
-		templateUrl: 'template.html'
-	};
-  }
-
-  angular
-	.module('<%= moduleName %>')
-	.directive('<%= directiveName %>', <%= directiveName %>Directive);
+	angular
+		.module('<%= moduleName %>')
+		.directive('<%= componentName %>', <%= componentName %>Directive);
 
 })();

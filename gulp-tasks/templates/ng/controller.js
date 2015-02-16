@@ -1,22 +1,22 @@
 /**
- * @fileOverview <%= controllerName %> controller
+ * @fileOverview <%= componentName %> controller
  *
  * @description
  *
  * @author <%= author %>
  *
- * ROUTE: /#/<%= moduleName %>/<%= controllerName %>
+ * ROUTE: /#/<%= moduleName %>/<%= componentName %>
  */
 (function(angular){
 'use strict';
 
 	/* @ngInject */
-	function <%= controllerName %>Controller($scope, $rootScope, CategoryAPI) {
+	function <%= componentName %>Controller($scope) {
 
 		var vm = this;
 
 		/**
-		 * @constructs <%= controllerName %>Controller
+		 * @constructs <%= componentName %>Controller
 		 */
 		(function init() {
 
@@ -25,5 +25,5 @@
 
 	angular
 		.module('<%= moduleName %>')
-		.controller('<%= controllerName %>Controller', <%= controllerName %>Controller);
+		.controller('<%= componentName %>Controller', <%= componentName %>Controller);
 })(angular);

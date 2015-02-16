@@ -40,6 +40,11 @@ module.exports = function (gulp, plugins, config) {
 	}
 
 	return function () {
+		/*--------------------------------------------
+			JS, CSS
+		--------------------------------------------*/
+
+		// inject html, css
     	gulp.src(config.app + '/index.html')
 		  	.pipe(wiredep({
 				devDependencies: true,
@@ -54,6 +59,32 @@ module.exports = function (gulp, plugins, config) {
 			.pipe(gulp.dest(config.app))
 			.pipe(plugins.notify({ message: 'inject task completed' }));
 
+		/*--------------------------------------------
+			LESS
+		--------------------------------------------*/
+
+		var lessOpts = {
+			starttag: '//- inject:less',
+			endtag: '//- endinject',
+			read: false,
+			relative: true,
+			addRootSlash: false,
+			transform: function (filepath) {
+				if (filepath.slice(-5) === '.less') {
+					return "@import '" + filepath + "';";
+				}
+			}
+		};
+
+		// inject less files
+		gulp.src(config.app + '/less/app.less')
+		  	.pipe(plugins.inject( gulp.src(config.app + '/less/views/**/*.less'), lessOpts) )
+			.pipe(gulp.dest(config.app + '/less'))
+			.pipe(plugins.notify({ message: 'inject LESS task completed' }));
+
+		/*--------------------------------------------
+			Karma
+		--------------------------------------------*/
 
 		var karmaOpts = {
 		    starttag: 'files: [',
@@ -68,6 +99,6 @@ module.exports = function (gulp, plugins, config) {
 		// inject js files into karma config file
 		gulp.src('./test/karma.conf.js')
 			.pipe(plugins.inject(testFiles(), karmaOpts))
-			.pipe(gulp.dest('./'));
+			.pipe(gulp.dest('./test/'));
     };
 };

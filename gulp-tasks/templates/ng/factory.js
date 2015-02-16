@@ -36,7 +36,7 @@
 
 		return {
 			fetch: fetch
-		;
+		};
 	}
 
 	angular
