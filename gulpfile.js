@@ -82,7 +82,7 @@ gulp.task('copy:prod', tasks.copyProd(gulp, plugins, config));
 gulp.task('clean', tasks.clean(config));
 
 // Builds a dist/public version
-gulp.task('build', ['clean', 'test:unit', 'copy'], tasks.build(gulp, plugins, config));
+gulp.task('build', ['clean', 'test:unit', 'copy', 'images'], tasks.build(gulp, plugins, config));
 
 // Builds a prod version
 gulp.task('build:prod', ['build', 'copy:prod']);
