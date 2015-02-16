@@ -13,7 +13,8 @@
 module.exports = function (gulp, plugins, config) {
 	'use strict';
 
-	return gulp.src(config.app + '/assets/img/*')
+	return function() {
+		gulp.src(config.app + '/assets/img/*')
 	        .pipe(plugins.imagemin({
 	            progressive: true,
 	            svgoPlugins: [{removeViewBox: false}],
