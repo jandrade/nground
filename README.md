@@ -21,9 +21,11 @@ Run the following commands:
 
 2. `sudo npm run install`
 
-3. `gulp serve`
+3. `bower install`
 
-4. Navigate to: `http://localhost:3000`
+4. `gulp serve`
+
+5. Navigate to: `http://localhost:3000`
 
 --------------------------------------
 

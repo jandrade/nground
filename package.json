@@ -51,7 +51,7 @@
     "wiredep": "^2.2.2"
   },
   "scripts": {
-    "install": "npm install -g gulp bower karma-cli && npm install && bower install"
+    "install": "npm install -g gulp bower karma-cli && npm install"
   },
   "keywords": [
     "frontend",
