@@ -59,7 +59,7 @@ module.exports = function (gulp, config, pkg, done) {
 					subtask = 'controller';
 				break;
 				case 'd':
-					subtask = 'directives';
+					subtask = 'directive';
 				break;
 				case 'f':
 					subtask = 'factory';
@@ -413,10 +413,24 @@ module.exports = function (gulp, config, pkg, done) {
 	        .pipe(rename(function(path) {
 	        	// only rename files, not directories
 	        	if (path.extname !== '') {
-	        		path.basename = singleName + '.' + path.basename;
+	        		path.basename = singleName;
 	        	}
 	        }))
 	        .pipe(gulp.dest(config.app + '/less/views/' + path + '/'));
+
+	    gulp.src([
+			__dirname + '/templates/ng/view.html'
+			])
+	        .pipe(template({
+	        	componentName: answers.componentName
+	        }))
+	        .pipe(rename(function(path) {
+	        	// only rename files, not directories
+	        	if (path.extname !== '') {
+	        		path.basename = singleName;
+	        	}
+	        }))
+	        .pipe(gulp.dest(config.app + '/views/' + path + '/'));
 	}
 
 	new ComponentsContext();

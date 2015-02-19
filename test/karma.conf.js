@@ -16,7 +16,7 @@ module.exports = function(config) {
 
 
 		// list of files / patterns to load in the browser / loaded via gulpfile.js
-		files: ["../../app/bower_components/angular/angular.js","../../app/bower_components/angular-route/angular-route.js","../../app/bower_components/angular-animate/angular-animate.js","../../app/js/modules/app/jk.app.js","../../app/js/modules/app/jk.config.js","../../app/js/modules/vea/vea.module.js","../../app/js/modules/vea/config/vea.config.js","../../app/js/modules/vea/config/vea.constants.js","../../app/js/modules/vea/directives/esto.directive.js","../../app/js/modules/vea/hijo/hijo.module.js","../../app/js/modules/vea/hijo/config/hijo.config.js","../../app/js/modules/vea/hijo/config/hijo.constants.js"],
+		files: ["../../app/bower_components/angular/angular.js","../../app/bower_components/angular-route/angular-route.js","../../app/bower_components/angular-animate/angular-animate.js"],
 
 
 		// list of files to exclude

@@ -11,15 +11,17 @@
 
 		<!-- build:css assets/css/app.vendors.css -->
   		<!-- bower:css -->
+  		<link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
   		<!-- endbower -->
   		<!-- endbuild -->
 
   		<link rel="stylesheet" href="assets/css/app.css">
 
 	</head>
-	<body>
-		<h1>Saludos desde Colombia JK!!!!!!!!!!!!!!!!</h1>
-		<p>Hello world! This is my custom Boilerplate.</p>
+	<body ng-app="nground">
+
+		<div class="main-container" ng-view>
+		</div>
 
 		<!-- build:js assets/js/app.vendors.js -->
   		<!-- bower:js -->
@@ -31,15 +33,6 @@
 
 		<!-- build:js assets/js/app.js -->
   		<!-- inject:js -->
-		<script src="js/modules/app/jk.app.js"></script>
-		<script src="js/modules/app/jk.config.js"></script>
-		<script src="js/modules/vea/vea.module.js"></script>
-		<script src="js/modules/vea/config/vea.config.js"></script>
-		<script src="js/modules/vea/config/vea.constants.js"></script>
-		<script src="js/modules/vea/directives/esto.directive.js"></script>
-		<script src="js/modules/vea/hijo/hijo.module.js"></script>
-		<script src="js/modules/vea/hijo/config/hijo.config.js"></script>
-		<script src="js/modules/vea/hijo/config/hijo.constants.js"></script>
 		<!-- endinject -->
 		<!-- endbuild -->
 		<!--(if target dist)>

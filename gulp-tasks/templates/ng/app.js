@@ -15,9 +15,10 @@
 	}
 
 	angular
-		.module('<%= moduleName %>',
-			[]
-		)
+		.module('<%= moduleName %>',[
+			'ngRoute',
+			'ngAnimate',
+		])
 		.run(run);
 
 })(angular);
